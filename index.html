@@ -6,24 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Todos</title>
     <link rel="stylesheet" href="styles/main.css" />
-    <script src="scripts/todos.js" defer></script>
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="./scripts/app.js" defer></script>
   </head>
   <body>
     <header>
       <h1>Todo Management</h1>
       <p>Manage your (daily) todos with ease!</p>
     </header>
-    <main>
+    <main id="todos-app">
+      <h2>{{ newTodo }}</h2>
       <section id="todo-management">
-        <form>
+        <form @submit="saveTodo">
+          <!-- the @submit is the event we are listening for, then activates when it is called, saveTodo  -->
           <label for="text">Todo text</label>
-          <input type="text" id="text" name="text" required />
+          <input type="text" id="text" v-model="enteredTodoText" required />
+          <!-- v-model connects whatever input or form element with a piece of data within data method. 2 ways. We could make it prefilled by filling out the enteredTodoText in the app.js-->
           <button>Save</button>
         </form>
       </section>
       <section id="todos">
-        <ul id="todos-list">
-        </ul>
+        <ul id="todos-list"></ul>
       </section>
     </main>
   </body>
