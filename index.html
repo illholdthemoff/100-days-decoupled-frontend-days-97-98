@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Todos</title>
     <link rel="stylesheet" href="styles/main.css" />
-    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="https://unpkg.com/vue@next"></script>
     <script src="./scripts/app.js" defer></script>
   </head>
   <body>
@@ -25,16 +25,19 @@
         </form>
       </section>
       <section id="todos">
-        <p v-if="todos.length === 0">No todos added yet - add some?</p>
+        <p v-if="todos.length === 0 && !isLoading">
+          No todos added yet - add some?
+        </p>
+        <p v-else-if="isLoading">Loading...</p>
         <ul v-else id="todos-list">
           <!-- v-else must be a direct neighbor of the v-if element -->
           <li v-for="todo in todos">
             <!-- loops through elements in html code. todos refers to the data property todos array -->
             <p>{{ todo.text }}</p>
             <div>
-              <button @click=""startEditTodo(todo.id)>Edit</button>
+              <button @click="startEditTodo(todo.id)">Edit</button>
               <!-- activates with todo.id when it is clicked after being created, so each edit button will already have access to its parent id -->
-              <button>Delete</button>
+              <button @click="deleteTodo(todo.id)">Delete</button>
             </div>
           </li>
         </ul>
